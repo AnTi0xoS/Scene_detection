@@ -17,7 +17,7 @@ def extract_frames(video_file, output_dir):
 def detect_scene_change(frame1, frame2):
     diff = cv2.absdiff(frame1, frame2)
     mean_diff = diff.mean()
-    return mean_diff > 20
+    return mean_diff > 3
 
 
 def find_scene_changes(video_file):
@@ -47,7 +47,7 @@ def find_scene_changes(video_file):
 
 
 if __name__ == "__main__":
-    video_file = "four_cars_night.mp4"
+    video_file = "one_car_NYC.mp4"
     output_dir = "frames"
     extract_frames(video_file, output_dir)
     scene_changes = find_scene_changes(video_file)
