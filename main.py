@@ -1,13 +1,17 @@
+from ffmpeg import FFmpeg
 import cv2
-import subprocess
 import os
 
 
 def extract_frames(video_file, output_dir):
-    if not os.path.exists(output_dir):
-        os.makedirs(output_dir)
-    command = ['ffmpeg', '-i', video_file, '-vf', 'fps=1', f'{output_dir}/frame_%05d.jpg']
-    subprocess.call(command)
+    os.makedirs(output_dir, exist_ok=True)
+    (
+        FFmpeg()
+        .option("y")
+        .input(video_file)
+        .output(f'{output_dir}/frame_%05d.jpg', vf='fps=1')
+        .execute()
+    )
 
 
 def detect_scene_change(frame1, frame2):
