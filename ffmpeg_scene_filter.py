@@ -4,13 +4,13 @@ import time
 import psutil
 
 
-def detect_scene_changes_ffmpeg(path):
+def detect_scene_changes(path):
     input_stream = ffmpeg.input(path)
     output_stream = (
         input_stream
         .filter('select', 'gte(scene,0.001)')
         .filter('showinfo')
-        .output('dummy.mp4', format='null')
+        .output('dummy.mp4', format='null', codec='libx264')
     )
     start_time = time.time()
     cpu_usage_before = psutil.cpu_percent(interval=None)
@@ -30,7 +30,7 @@ def detect_scene_changes_ffmpeg(path):
 
 if __name__ == "__main__":
     video_path = 'four_cars_night.mp4'
-    changes, execution_time, memory_usage, cpu_usage, fps = detect_scene_changes_ffmpeg(video_path)
+    changes, execution_time, memory_usage, cpu_usage, fps = detect_scene_changes(video_path)
     print("Scene Changes:")
     for scene_num in range(len(changes)):
         print(f"Scene {scene_num}:", changes[scene_num])
