@@ -52,7 +52,11 @@ def detect_scene_changes_cv2(video_file):
 
 
 if __name__ == "__main__":
-    video_path = "four_cars_night.mp4"
+    video_path = "video_files/1_four_cars_night.mp4"
+    # for 1_four_cars_night.mp4
+    # Scene 1 - 9.66
+    # Scene 2 - 15.97
+    # Scene 3 - 19.58
     scene_changes, execution_time, decode_time, recognition_time, memory_usage, cpu_usage, fps = detect_scene_changes_cv2(video_path)
     print("Scene Changes:")
     for scene_num, scene_time in enumerate(scene_changes):
